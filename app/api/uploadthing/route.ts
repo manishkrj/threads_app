@@ -26,7 +26,7 @@ const { GET: originalGET, POST: originalPOST } = createNextRouteHandler({
 });
 
 // Configure number of seconds for the timeout
-const maxDuration = 5;
+const maxDuration = 10;
 
 // Wrap the entire GET handler with the timeout function
 export const GET = createTimeoutHandler(async (request: NextApiRequest, response: NextApiResponse) => {
