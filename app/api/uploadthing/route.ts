@@ -13,20 +13,11 @@ export const runtime = 'edge'; // 'nodejs' is the default
 // Combine logic from both GET implementations
 export async function GET(request: NextRequest) {
   try {
-    // Original logic from createNextRouteHandler
-    const originalResponse = await originalGET(request);
-
-    // Your additional logic from the second implementation
-    const customResponse = NextResponse.json(
-      {
-        body: request.body,
-        query: request.nextUrl.search,
-        cookies: request.cookies.getAll(),
-      },
-      {
-        status: 200,
-      },
-    );
+    // Execute both original and custom logic concurrently
+    const [originalResponse, customResponse] = await Promise.all([
+      originalGET(request),
+      getNextResponse(request),
+    ]);
 
     // Merge or prioritize the responses as needed
     const mergedResponse = {
@@ -44,4 +35,18 @@ export async function GET(request: NextRequest) {
       status: 500,
     };
   }
+}
+
+// Function to perform custom logic and return NextResponse
+async function getNextResponse(request: NextRequest) {
+  return NextResponse.json(
+    {
+      body: request.body,
+      query: request.nextUrl.search,
+      cookies: request.cookies.getAll(),
+    },
+    {
+      status: 200,
+    },
+  );
 }
