@@ -7,4 +7,5 @@ export const { GET, POST } = createNextRouteHandler({
   router: ourFileRouter,
 });
 
-export const maxDuration = 5;
+export const maxDuration = 10;
+export const dynamic = 'force-dynamic';
