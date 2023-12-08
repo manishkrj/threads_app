@@ -1,7 +1,0 @@
-{
-    "functions": {
-      "users/**/*.js": {
-        "maxDuration": 30
-      }
-    }
-  }
