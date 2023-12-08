@@ -1,0 +1,8 @@
+{
+    "functions": {
+      "api/my-function": {
+        "maxDuration": 30
+      }
+    }
+  }
+  
