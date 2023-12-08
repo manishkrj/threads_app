@@ -7,3 +7,4 @@ export const { GET, POST } = createNextRouteHandler({
   router: ourFileRouter,
 });
 
+export const maxDuration = 5;
