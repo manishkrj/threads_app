@@ -11,7 +11,7 @@ const { GET: originalGET } = createNextRouteHandler({
 export const runtime = 'edge'; // 'nodejs' is the default
 
 // Combine logic from both GET implementations
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<Response> {
   try {
     // Execute both original and custom logic concurrently
     const [originalResponse, customResponse] = await Promise.all([
@@ -30,15 +30,17 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     // Handle errors and return an appropriate response
     console.error("Error:", error);
-    return {
-      body: { error: "Internal Server Error" },
+
+    // Return a valid error response conforming to Response type
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
       status: 500,
-    };
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
 
 // Function to perform custom logic and return NextResponse
-async function getNextResponse(request: NextRequest) {
+async function getNextResponse(request: NextRequest): Promise<Response> {
   return NextResponse.json(
     {
       body: request.body,
