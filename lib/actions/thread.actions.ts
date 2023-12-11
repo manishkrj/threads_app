@@ -63,7 +63,6 @@ export async function createThread({ text, author, communityId, path }: Params
       { id: communityId },
       { _id: 1 }
     );
-
     const createdThread = await Thread.create({
       text,
       author,
@@ -74,6 +73,7 @@ export async function createThread({ text, author, communityId, path }: Params
     await User.findByIdAndUpdate(author, {
       $push: { threads: createdThread._id },
     });
+
     if (communityIdObject) {
       // Update Community model
       await Community.findByIdAndUpdate(communityIdObject, {

@@ -92,7 +92,7 @@ const ThreadCard = ({
                         src={community.image}
                         alt={community.name}
                         width={14}
-                        height={15}
+                        height={14}
                         className="ml-1 rounded-full object-cover"
                     />
                 </Link>
